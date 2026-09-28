@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pickup List | Flo On Wheels Cycles</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="pickup">
+  <header id="site-header"></header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1>Your Pickup List</h1>
+        <p>Send us your list and we'll set the items aside and confirm by phone or email. You pay in store when you pick them up.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="table-wrap" id="pickup-items"></div>
+
+        <form id="pickup-form" class="panel" style="margin-top: 32px" hidden>
+          <h2>Request Pickup</h2>
+          <div class="form-grid">
+            <label>Name <input name="name" required autocomplete="name"></label>
+            <label>Phone <input name="phone" type="tel" required autocomplete="tel"></label>
+            <label>Email <input name="email" type="email" required autocomplete="email"></label>
+            <label>Preferred pickup date <input name="date" type="date"></label>
+            <label class="full">Notes (optional) <textarea name="notes" rows="3" placeholder="Questions about sizing, color, accessories…"></textarea></label>
+          </div>
+          <p><button class="btn btn-primary" type="submit">Send Pickup Request</button></p>
+          <p class="form-note" id="pickup-msg" role="status"></p>
+          <p class="fine">Prices shown are estimates before tax. We'll confirm availability and final price before you come in.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

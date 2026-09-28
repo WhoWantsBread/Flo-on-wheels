@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact | Flo On Wheels Cycles</title>
+  <meta name="description" content="Contact Flo On Wheels Cycles at 1222 Washington St, Hoboken, NJ 07030. Call (201) 798-5589 or email floonwheels87@gmail.com.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="contact">
+  <header id="site-header"></header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1>Contact Us</h1>
+        <p>Questions about a bike, a repair, or an order? We're happy to help.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container contact-grid">
+        <div>
+          <div class="contact-block">
+            <h3>Visit</h3>
+            <p>1222 Washington St<br>Hoboken, NJ 07030</p>
+          </div>
+          <div class="contact-block">
+            <h3>Call</h3>
+            <p><a href="tel:+12017985589">(201) 798-5589</a></p>
+          </div>
+          <div class="contact-block">
+            <h3>Email</h3>
+            <p><a href="mailto:floonwheels87@gmail.com">floonwheels87@gmail.com</a></p>
+          </div>
+          <div class="contact-block">
+            <h3>Hours</h3>
+            <div id="contact-hours"></div>
+          </div>
+        </div>
+
+        <form id="contact-form" class="panel">
+          <h2>Send a Message</h2>
+          <div class="form-grid">
+            <label>Name <input name="name" required autocomplete="name"></label>
+            <label>Email <input name="email" type="email" required autocomplete="email"></label>
+            <label>Phone (optional) <input name="phone" type="tel" autocomplete="tel"></label>
+            <label>Topic
+              <select name="topic">
+                <option>General question</option>
+                <option>Bike or product question</option>
+                <option>Repair / service</option>
+                <option>Existing pickup order</option>
+              </select>
+            </label>
+            <label class="full">Message <textarea name="message" rows="5" required></textarea></label>
+          </div>
+          <p><button class="btn btn-primary" type="submit">Send Message</button></p>
+          <p class="form-note" id="contact-msg" role="status"></p>
+        </form>
+      </div>
+
+      <div class="container">
+        <iframe class="map" title="Map to Flo On Wheels Cycles"
+          src="https://maps.google.com/maps?q=1222+Washington+St,+Hoboken,+NJ+07030&output=embed"
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
