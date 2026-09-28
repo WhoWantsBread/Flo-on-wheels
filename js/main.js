@@ -52,27 +52,36 @@ function updatePickupCount() {
 
 /* ---------- Header & footer ---------- */
 
+// Home links to the site root (clean URL). Opened straight from disk, "./" would show a
+// folder listing, so fall back to index.html there.
+const HOME_URL = location.protocol === "file:" ? "index.html" : "./";
+
+// [href, label, body data-page]
 const NAV = [
-  ["index.html", "Home"],
-  ["shop.html", "Shop"],
-  ["services.html", "Services"],
-  ["about.html", "About"],
-  ["contact.html", "Contact"],
+  [HOME_URL, "Home", "home"],
+  ["shop.html", "Shop", "shop"],
+  ["services.html", "Services", "services"],
+  ["about.html", "About", "about"],
+  ["contact.html", "Contact", "contact"],
 ];
 
 function renderChrome() {
-  const current = location.pathname.split("/").pop() || "index.html";
+  const current = document.body.dataset.page;
+  // Show the clean root URL even if someone lands on .../index.html
+  if (current === "home" && location.protocol !== "file:" && location.pathname.endsWith("/index.html")) {
+    history.replaceState(null, "", location.pathname.slice(0, -"index.html".length) + location.search + location.hash);
+  }
   const header = $("#site-header");
   if (header) {
     header.innerHTML = `
       <div class="container header-inner">
-        <a class="logo" href="index.html" aria-label="${SHOP.name} home">
+        <a class="logo" href="${HOME_URL}" aria-label="${SHOP.name} home">
           <span class="logo-mark">Flo On Wheels</span><span class="logo-text">Cycles</span>
         </a>
         <button class="nav-toggle" aria-expanded="false" aria-controls="main-nav">Menu</button>
         <nav id="main-nav" class="main-nav">
-          ${NAV.map(([href, label]) => `<a href="${href}"${href === current ? ' aria-current="page"' : ""}>${label}</a>`).join("")}
-          <a href="pickup.html" class="pickup-link"${current === "pickup.html" ? ' aria-current="page"' : ""}>
+          ${NAV.map(([href, label, page]) => `<a href="${href}"${page === current ? ' aria-current="page"' : ""}>${label}</a>`).join("")}
+          <a href="pickup.html" class="pickup-link"${current === "pickup" ? ' aria-current="page"' : ""}>
             Pickup List <span class="badge" data-pickup-count hidden>0</span>
           </a>
         </nav>
