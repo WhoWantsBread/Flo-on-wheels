@@ -96,7 +96,10 @@ h3 { font-size: 1.4rem; font-weight: 700; }
   font-size: 2.1rem; font-weight: 800; letter-spacing: 0.04em;
   background: var(--chrome); -webkit-background-clip: text; background-clip: text; color: transparent;
 }
-.logo-text { font-size: 1.1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); }
+.logo-text {
+  font-size: 1.1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em;
+  background: var(--chrome); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
 .main-nav { display: flex; gap: 2px; align-items: center; }
 .main-nav a {
   color: #d5d8dc;
