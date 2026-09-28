@@ -20,6 +20,7 @@ Website for **Flo On Wheels Cycles**, a Specialized dealer with two shops in New
 - **Reserve for in-store pickup.** Customers build a pickup list and send it to the shop.
   There's no online payment; customers pay in store.
 - **Repairs & service** price menu
+- **Free lifetime tune-ups** on bikes bought from the shop (home page banner, bike product pages, Services page)
 - **About** page with the shop story, milestones and team
 - **Contact** page with a message form, hours and a Google Map
 - Mobile-friendly layout

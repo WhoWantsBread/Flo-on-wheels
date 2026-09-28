@@ -1,6 +1,8 @@
 /* Shared behavior for every page. Page-specific code runs based on <body data-page="..."> */
 
 const PICKUP_KEY = "flo-pickup-list";
+// Categories that are whole bikes (vs. parts/accessories)
+const BIKE_CATEGORIES = ["ebikes", "road", "mountain", "city", "kids"];
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const escapeHtml = (s) =>
@@ -120,7 +122,7 @@ function hoursTable() {
 
 // Simple bike drawing used when a product has no photo yet
 function placeholderArt(category) {
-  const isBike = ["ebikes", "road", "mountain", "city", "kids"].includes(category);
+  const isBike = BIKE_CATEGORIES.includes(category);
   const art = isBike
     ? `<circle cx="28" cy="46" r="16"/><circle cx="92" cy="46" r="16"/>
        <path d="M28 46 L50 22 L80 22 L92 46 M50 22 L62 46 L28 46 M62 46 L80 22 M46 14 L56 14 M80 22 L76 12 L86 12"/>
@@ -228,6 +230,7 @@ function initProduct() {
           ${p.inStock === false ? "Special order: usually arrives in 1–2 weeks" : "In stock"}
         </p>
         <p class="where">Pickup at: <strong>${whereText}</strong></p>
+        ${BIKE_CATEGORIES.includes(p.category) ? `<p class="perk">∞ Includes free tune-ups for life</p>` : ""}
         <p>${escapeHtml(p.description)}</p>
         <form id="add-form" class="add-form">
           ${
