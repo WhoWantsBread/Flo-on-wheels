@@ -67,7 +67,7 @@ function renderChrome() {
     header.innerHTML = `
       <div class="container header-inner">
         <a class="logo" href="index.html" aria-label="${SHOP.name} home">
-          <span class="logo-mark">FLO</span><span class="logo-text">On Wheels Cycles</span>
+          <span class="logo-mark">Flo On Wheels</span><span class="logo-text">Cycles</span>
         </a>
         <button class="nav-toggle" aria-expanded="false" aria-controls="main-nav">Menu</button>
         <nav id="main-nav" class="main-nav">
