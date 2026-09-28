@@ -230,7 +230,7 @@ function initProduct() {
           ${p.inStock === false ? "Special order: usually arrives in 1–2 weeks" : "In stock"}
         </p>
         <p class="where">Pickup at: <strong>${whereText}</strong></p>
-        ${BIKE_CATEGORIES.includes(p.category) ? `<p class="perk">∞ Includes free tune-ups for life</p>` : ""}
+        ${BIKE_CATEGORIES.includes(p.category) && p.category !== "ebikes" ? `<p class="perk">∞ Includes free tune-ups for life (original owner)</p>` : ""}
         <p>${escapeHtml(p.description)}</p>
         <form id="add-form" class="add-form">
           ${
