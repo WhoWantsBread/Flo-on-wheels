@@ -7,17 +7,42 @@
 
 const SHOP = {
   name: "Flo On Wheels Cycles",
-  street: "1222 Washington St",
-  city: "Hoboken, NJ 07030",
-  phone: "+12017985589",
-  phoneDisplay: "(201) 798-5589",
   email: "floonwheels87@gmail.com",
+  // Same hours at both locations
   hours: [
     ["Mon – Fri", "11:00 AM – 6:00 PM"],
     ["Saturday", "10:00 AM – 5:00 PM"],
     ["Sunday", "Closed"],
   ],
 };
+
+/*
+ * Store locations.
+ *   ebikes: true if the location sells and services e-bikes.
+ *   Products with category "ebikes" can only be reserved at locations with ebikes: true.
+ */
+const LOCATIONS = [
+  {
+    id: "hoboken",
+    name: "Hoboken",
+    street: "1222 Washington St",
+    city: "Hoboken, NJ 07030",
+    phone: "+12017985589",
+    phoneDisplay: "(201) 798-5589",
+    ebikes: false,
+    specialty: "Bicycles: road, gravel, mountain, city and kids' bikes, parts and gear.",
+  },
+  {
+    id: "wny",
+    name: "West New York",
+    street: "604 60th St",
+    city: "West New York, NJ 07093",
+    phone: "+12013308303",
+    phoneDisplay: "(201) 330-8303",
+    ebikes: true,
+    specialty: "E-bikes and bicycles, including e-bike sales, service and diagnostics.",
+  },
+];
 
 const CATEGORIES = [
   { id: "ebikes", label: "E-Bikes" },
@@ -50,7 +75,7 @@ const PRODUCTS = [
     inStock: true,
     sizes: ["S", "M", "L", "XL"],
     description:
-      "A do-it-all commuter e-bike with a smooth, quiet motor, integrated lights and fenders, and plenty of range for daily trips across Hoboken and into the city.",
+      "A do-it-all commuter e-bike with a smooth, quiet motor, integrated lights and fenders, and plenty of range for daily trips along the Hudson and into the city.",
   },
   {
     id: "turbo-como-3",
@@ -161,7 +186,7 @@ const PRODUCTS = [
     category: "accessories",
     price: 90,
     inStock: true,
-    description: "A must in Hoboken. High-security U-lock with a mounting bracket.",
+    description: "A must in the city. High-security U-lock with a mounting bracket.",
   },
   {
     id: "light-set",
@@ -195,6 +220,7 @@ const SERVICES = [
   },
   {
     group: "E-Bike Service",
+    locations: ["wny"], // only offered at these location ids; omit for all locations
     items: [
       { name: "E-Bike Tune-Up", price: "$125", desc: "Full tune-up plus motor, battery and firmware check." },
       { name: "Diagnostics", price: "$60", desc: "Troubleshoot motor, battery or display issues." },

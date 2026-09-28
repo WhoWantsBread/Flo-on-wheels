@@ -8,6 +8,10 @@ const escapeHtml = (s) =>
 const money = (n) => "$" + Number(n).toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 2 });
 const categoryLabel = (id) => (CATEGORIES.find((c) => c.id === id) || {}).label || id;
 const productById = (id) => PRODUCTS.find((p) => p.id === id);
+const locationById = (id) => LOCATIONS.find((l) => l.id === id);
+// E-bikes can only be reserved where e-bikes are sold
+const locationsFor = (p) => LOCATIONS.filter((l) => p.category !== "ebikes" || l.ebikes);
+const mapSrc = (l) => `https://maps.google.com/maps?q=${encodeURIComponent(`${l.street}, ${l.city}`)}&output=embed`;
 
 /* ---------- Pickup list (stored in the visitor's browser) ---------- */
 
@@ -84,14 +88,18 @@ function renderChrome() {
       <div class="container footer-grid">
         <div>
           <p class="footer-brand">${SHOP.name}</p>
-          <p>Hoboken's neighborhood bike &amp; e-bike shop.<br>Proud Specialized dealer.</p>
+          <p>Bikes in Hoboken. E-bikes and bikes in West New York.<br>Proud Specialized dealer.</p>
+          <p><a href="mailto:${SHOP.email}">${SHOP.email}</a></p>
         </div>
+        ${LOCATIONS.map(
+          (l) => `
         <div>
-          <h3>Visit</h3>
-          <p>${SHOP.street}<br>${SHOP.city}</p>
-          <p><a href="tel:${SHOP.phone}">${SHOP.phoneDisplay}</a><br>
-             <a href="mailto:${SHOP.email}">${SHOP.email}</a></p>
-        </div>
+          <h3>${l.name}</h3>
+          <p>${l.street}<br>${l.city}</p>
+          <p><a href="tel:${l.phone}">${l.phoneDisplay}</a><br>
+             <small>${l.ebikes ? "E-bikes + bicycles" : "Bicycles"}</small></p>
+        </div>`
+        ).join("")}
         <div>
           <h3>Hours</h3>
           ${hoursTable()}
@@ -135,6 +143,11 @@ function productCard(p) {
         <div class="card-img">${productImage(p)}</div>
         <div class="card-body">
           <p class="card-brand">${escapeHtml(p.brand)} · ${categoryLabel(p.category)}</p>
+          ${
+            locationsFor(p).length < LOCATIONS.length
+              ? `<p class="card-where">At ${locationsFor(p).map((l) => l.name).join(", ")} only</p>`
+              : ""
+          }
           <h3>${escapeHtml(p.name)}</h3>
           <p class="card-price">${money(p.price)}${p.inStock === false ? ' <span class="tag">Special order</span>' : ""}</p>
         </div>
@@ -144,7 +157,7 @@ function productCard(p) {
 
 /* ---------- Pages ---------- */
 
-function initHome() {
+function initHomeProducts() {
   $("#featured").innerHTML = PRODUCTS.filter((p) => p.featured).map(productCard).join("");
   $("#home-categories").innerHTML = CATEGORIES.map(
     (c) => `<a class="cat-tile" href="shop.html?category=${c.id}">${c.label}</a>`
@@ -201,6 +214,8 @@ function initProduct() {
     return;
   }
   document.title = `${p.brand} ${p.name} | ${SHOP.name}`;
+  const where = locationsFor(p);
+  const whereText = where.length === LOCATIONS.length ? "Hoboken & West New York" : `${where.map((l) => l.name).join(", ")} only`;
   root.innerHTML = `
     <p class="crumbs"><a href="shop.html">Shop</a> / <a href="shop.html?category=${p.category}">${categoryLabel(p.category)}</a></p>
     <div class="product-layout">
@@ -210,8 +225,9 @@ function initProduct() {
         <h1>${escapeHtml(p.name)}</h1>
         <p class="product-price">${money(p.price)}</p>
         <p class="stock ${p.inStock === false ? "out" : "in"}">
-          ${p.inStock === false ? "Special order: usually arrives in 1–2 weeks" : "In stock at our Hoboken shop"}
+          ${p.inStock === false ? "Special order: usually arrives in 1–2 weeks" : "In stock"}
         </p>
+        <p class="where">Pickup at: <strong>${whereText}</strong></p>
         <p>${escapeHtml(p.description)}</p>
         <form id="add-form" class="add-form">
           ${
@@ -228,7 +244,8 @@ function initProduct() {
           <p class="form-note" id="add-msg" role="status"></p>
         </form>
         <p class="fine">No payment online. Reserve it here and pay when you pick it up.
-          Not sure about sizing? <a href="tel:${SHOP.phone}">Call us</a> or stop by for a free fit check.</p>
+          Not sure about sizing? Call ${where.map((l) => `${l.name} at <a href="tel:${l.phone}">${l.phoneDisplay}</a>`).join(" or ")},
+          or stop by for a free fit check.</p>
       </div>
     </div>`;
   $("#add-form").addEventListener("submit", (e) => {
@@ -270,6 +287,15 @@ function initPickup() {
         </tbody>
         <tfoot><tr><th colspan="2">Estimated total (before tax)</th><td colspan="2">${money(total)}</td></tr></tfoot>
       </table>`;
+
+    // Only offer locations that carry every item on the list
+    const allowed = LOCATIONS.filter((l) => list.every((i) => locationsFor(productById(i.id)).includes(l)));
+    const select = $("#pickup-location");
+    const prev = select.value;
+    select.innerHTML = allowed
+      .map((l) => `<option value="${l.id}"${l.id === prev ? " selected" : ""}>${l.name}: ${l.street}</option>`)
+      .join("");
+    $("#pickup-location-note").hidden = allowed.length === LOCATIONS.length;
     box.oninput = (e) => {
       if (!e.target.dataset.idx) return;
       const next = readPickup().filter((i) => productById(i.id));
@@ -295,8 +321,10 @@ function initPickup() {
         const p = productById(i.id);
         return `- ${i.qty} x ${p.brand} ${p.name}${i.size ? ` (size ${i.size})` : ""}: ${money(p.price * i.qty)}`;
       });
+    const loc = locationById(data.get("location"));
     const body = [
       `Pickup request from ${data.get("name")}`,
+      `Pickup location: ${loc.name} (${loc.street})`,
       `Phone: ${data.get("phone")}`,
       `Email: ${data.get("email")}`,
       `Preferred pickup date: ${data.get("date") || "flexible"}`,
@@ -306,7 +334,7 @@ function initPickup() {
       "",
       `Notes: ${data.get("notes") || "(none)"}`,
     ].join("\n");
-    location.href = `mailto:${SHOP.email}?subject=${encodeURIComponent("Pickup request: " + data.get("name"))}&body=${encodeURIComponent(body)}`;
+    location.href = `mailto:${SHOP.email}?subject=${encodeURIComponent(`Pickup request (${loc.name}): ${data.get("name")}`)}&body=${encodeURIComponent(body)}`;
     $("#pickup-msg").textContent =
       "Your email app should open with the request filled in. Press send there, and we'll confirm by phone or email.";
   });
@@ -317,7 +345,11 @@ function initServices() {
   $("#service-list").innerHTML = SERVICES.map(
     (g) => `
     <section class="service-group">
-      <h2>${escapeHtml(g.group)}</h2>
+      <h2>${escapeHtml(g.group)}${
+        g.locations
+          ? ` <span class="loc-badge">${g.locations.map((id) => locationById(id).name).join(", ")} only</span>`
+          : ""
+      }</h2>
       <ul>${g.items
         .map(
           (s) => `<li>
@@ -346,12 +378,34 @@ function initAbout() {
   ).join("");
 }
 
+function locationCards() {
+  return LOCATIONS.map(
+    (l) => `
+    <article class="location-card">
+      <h3>${l.name} <span class="loc-badge">${l.ebikes ? "E-bikes + bicycles" : "Bicycles"}</span></h3>
+      <p>${l.street}<br>${l.city}</p>
+      <p><a href="tel:${l.phone}">${l.phoneDisplay}</a></p>
+      <p class="fine">${l.specialty}</p>
+    </article>`
+  ).join("");
+}
+
+function initHome() {
+  initHomeProducts();
+  $("#home-locations").innerHTML = locationCards();
+}
+
 function initContact() {
   $("#contact-hours").innerHTML = hoursTable();
+  $("#contact-locations").innerHTML = locationCards();
+  $("#contact-maps").innerHTML = LOCATIONS.map(
+    (l) => `<iframe class="map" title="Map to our ${l.name} shop" src="${mapSrc(l)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`
+  ).join("");
+  $("#contact-location").innerHTML = [`<option value="">Either / not sure</option>`, ...LOCATIONS.map((l) => `<option>${l.name}</option>`)].join("");
   $("#contact-form").addEventListener("submit", (e) => {
     e.preventDefault();
     const d = new FormData(e.target);
-    const body = `From: ${d.get("name")}\nEmail: ${d.get("email")}\nPhone: ${d.get("phone") || "-"}\n\n${d.get("message")}`;
+    const body = `From: ${d.get("name")}\nEmail: ${d.get("email")}\nPhone: ${d.get("phone") || "-"}\nLocation: ${d.get("location") || "Either"}\n\n${d.get("message")}`;
     location.href = `mailto:${SHOP.email}?subject=${encodeURIComponent(`[${d.get("topic")}] Website message from ${d.get("name")}`)}&body=${encodeURIComponent(body)}`;
     $("#contact-msg").textContent = "Your email app should open with your message. Press send there to reach us.";
   });

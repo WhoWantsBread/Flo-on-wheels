@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Contact | Flo On Wheels Cycles</title>
-  <meta name="description" content="Contact Flo On Wheels Cycles at 1222 Washington St, Hoboken, NJ 07030. Call (201) 798-5589 or email floonwheels87@gmail.com.">
+  <meta name="description" content="Contact Flo On Wheels Cycles in Hoboken (1222 Washington St, (201) 798-5589) or West New York (604 60th St, (201) 330-8303), NJ.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -24,20 +24,13 @@
     <section class="section">
       <div class="container contact-grid">
         <div>
-          <div class="contact-block">
-            <h3>Visit</h3>
-            <p>1222 Washington St<br>Hoboken, NJ 07030</p>
-          </div>
-          <div class="contact-block">
-            <h3>Call</h3>
-            <p><a href="tel:+12017985589">(201) 798-5589</a></p>
-          </div>
+          <div class="locations stacked" id="contact-locations"></div>
           <div class="contact-block">
             <h3>Email</h3>
             <p><a href="mailto:floonwheels87@gmail.com">floonwheels87@gmail.com</a></p>
           </div>
           <div class="contact-block">
-            <h3>Hours</h3>
+            <h3>Hours (both shops)</h3>
             <div id="contact-hours"></div>
           </div>
         </div>
@@ -56,6 +49,9 @@
                 <option>Existing pickup order</option>
               </select>
             </label>
+            <label class="full">Location
+              <select name="location" id="contact-location"></select>
+            </label>
             <label class="full">Message <textarea name="message" rows="5" required></textarea></label>
           </div>
           <p><button class="btn btn-primary" type="submit">Send Message</button></p>
@@ -64,9 +60,7 @@
       </div>
 
       <div class="container">
-        <iframe class="map" title="Map to Flo On Wheels Cycles"
-          src="https://maps.google.com/maps?q=1222+Washington+St,+Hoboken,+NJ+07030&output=embed"
-          loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="maps" id="contact-maps"></div>
       </div>
     </section>
   </main>

@@ -28,6 +28,10 @@
         <form id="pickup-form" class="panel" style="margin-top: 32px" hidden>
           <h2>Request Pickup</h2>
           <div class="form-grid">
+            <label class="full">Pickup location
+              <select name="location" id="pickup-location" required></select>
+              <small id="pickup-location-note" class="fine" hidden>E-bikes are only available at our West New York shop.</small>
+            </label>
             <label>Name <input name="name" required autocomplete="name"></label>
             <label>Phone <input name="phone" type="tel" required autocomplete="tel"></label>
             <label>Email <input name="email" type="email" required autocomplete="email"></label>

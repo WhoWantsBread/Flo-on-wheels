@@ -1,14 +1,17 @@
 # Flo On Wheels Cycles: Website
 
-Website for **Flo On Wheels Cycles**, a bike and e-bike shop and Specialized dealer in Hoboken, NJ.
+Website for **Flo On Wheels Cycles**, a Specialized dealer with two shops in New Jersey.
 
 > **Status: demo.** Products, prices, service rates, team bios and shop history are placeholders.
 > Search the project for `TODO` to find everything that still needs real content.
 
-- **Address:** 1222 Washington St, Hoboken, NJ 07030
-- **Phone:** (201) 798-5589
+| Location | Address | Phone | Sells |
+|---|---|---|---|
+| Hoboken | 1222 Washington St, Hoboken, NJ 07030 | (201) 798-5589 | Bicycles |
+| West New York | 604 60th St, West New York, NJ 07093 | (201) 330-8303 | E-bikes + bicycles |
+
 - **Email:** floonwheels87@gmail.com
-- **Hours:** Mon–Fri 11 AM–6 PM · Sat 10 AM–5 PM · Sun closed
+- **Hours (both):** Mon–Fri 11 AM–6 PM · Sat 10 AM–5 PM · Sun closed
 
 ## Features
 
@@ -48,10 +51,11 @@ Almost everything lives in **`js/data.js`**:
 
 | Section | What it controls |
 |---|---|
-| `SHOP` | Name, address, phone, email, hours (shown in footer and Contact page) |
+| `SHOP` | Name, email, hours (shared by both shops) |
+| `LOCATIONS` | Each shop's address, phone, and whether it sells e-bikes (e-bikes can only be reserved where `ebikes: true`) |
 | `CATEGORIES` | Shop categories and filter buttons |
 | `PRODUCTS` | The catalog: name, brand, category, price, sizes, photo, stock status, featured |
-| `SERVICES` | Repair menu and prices |
+| `SERVICES` | Repair menu and prices (`locations: [...]` limits a group to certain shops) |
 | `TEAM` | Staff names, roles, bios, photos |
 
 **To add a product,** copy an existing entry in `PRODUCTS`, give it a unique `id`
