@@ -38,6 +38,7 @@ It can be hosted on any static host (GitHub Pages, Netlify, Cloudflare Pages).
 ├── services.html     Repair and service prices
 ├── about.html        Story, milestones, team
 ├── contact.html      Contact info, form, map
+├── credits.html      Photo credits (generated from `credit` fields in data.js)
 ├── css/styles.css    All styling (colors are CSS variables at the top)
 ├── js/data.js        ← All editable content: shop info, products, services, team
 ├── js/main.js        Shared header/footer and page logic
@@ -70,6 +71,11 @@ Almost everything lives in **`js/data.js`**:
   Square works best (e.g. 400×400).
 - Use lowercase file names with dashes and no spaces. File names are case-sensitive once online.
 - Items without a photo show a simple drawing instead.
+
+**About the current product photos:** they're **sample images from Wikimedia Commons** used under free licenses
+(CC BY, CC BY-SA, CC0, public domain). Most aren't the exact model listed. Each product has a `credit` field in `data.js`;
+the credit is shown under the photo and on `credits.html`, as the licenses require. When you replace a photo with
+the shop's own or an official Specialized image, delete that product's `credit` line too.
 
 ## Preview locally
 

@@ -59,6 +59,8 @@ const CATEGORIES = [
  *   id        unique, URL-safe (used in product.html?id=...)
  *   name, brand, category (one of CATEGORIES ids), price (number, USD)
  *   image     optional path, e.g. "images/products/turbo-vado.jpg" — a placeholder is drawn if missing
+ *   credit    optional photo credit { author, license, licenseUrl, source } — required for CC-licensed photos,
+ *             shown under the photo and on credits.html. Omit for the shop's own / official Specialized photos.
  *   featured  true to show on the home page
  *   inStock   false shows "Special order"
  *   sizes     optional list
@@ -67,6 +69,8 @@ const CATEGORIES = [
 const PRODUCTS = [
   {
     id: "turbo-vado-4",
+    image: "images/products/turbo-vado-4.jpg",
+    credit: { author: "Matti Blume", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/deed.en", source: "https://commons.wikimedia.org/wiki/File:Specialized_Turbo_Tero,_Cycling_World_Europe_2025,_Meerbusch_(P1045273).jpg" },
     name: "Turbo Vado 4.0",
     brand: "Specialized",
     category: "ebikes",
@@ -79,6 +83,8 @@ const PRODUCTS = [
   },
   {
     id: "turbo-como-3",
+    image: "images/products/turbo-como-3.jpg",
+    credit: { author: "Cjp24", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", source: "https://commons.wikimedia.org/wiki/File:Gitane,_VAE_(1).jpg" },
     name: "Turbo Como 3.0",
     brand: "Specialized",
     category: "ebikes",
@@ -91,6 +97,8 @@ const PRODUCTS = [
   },
   {
     id: "turbo-levo",
+    image: "images/products/turbo-levo.jpg",
+    credit: { author: "Matti Blume", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/deed.en", source: "https://commons.wikimedia.org/wiki/File:S-Works_Turbo_Levo_4,_VELO_2025,_Berlin_(P1047023).jpg" },
     name: "Turbo Levo",
     brand: "Specialized",
     category: "ebikes",
@@ -101,6 +109,8 @@ const PRODUCTS = [
   },
   {
     id: "allez",
+    image: "images/products/allez.jpg",
+    credit: { author: "Keanu @ no:wp", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0", source: "https://commons.wikimedia.org/wiki/File:Specialized_road_bike.JPG" },
     name: "Allez",
     brand: "Specialized",
     category: "road",
@@ -112,6 +122,8 @@ const PRODUCTS = [
   },
   {
     id: "diverge-e5",
+    image: "images/products/diverge-e5.jpg",
+    credit: { author: "Matti Blume", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/deed.en", source: "https://commons.wikimedia.org/wiki/File:Crossworx,_Velo_24,_Berlin_(VB243512).jpg" },
     name: "Diverge E5",
     brand: "Specialized",
     category: "road",
@@ -122,6 +134,8 @@ const PRODUCTS = [
   },
   {
     id: "rockhopper",
+    image: "images/products/rockhopper.jpg",
+    credit: { author: "Cordless Larry", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0", source: "https://commons.wikimedia.org/wiki/File:Specialized_Rockhopper_Expert_Disc_2009.jpg" },
     name: "Rockhopper",
     brand: "Specialized",
     category: "mountain",
@@ -132,6 +146,8 @@ const PRODUCTS = [
   },
   {
     id: "sirrus-2",
+    image: "images/products/sirrus-2.jpg",
+    credit: { author: "Ocdp", license: "CC0", licenseUrl: "http://creativecommons.org/publicdomain/zero/1.0/deed.en", source: "https://commons.wikimedia.org/wiki/File:Specialized_Sirrus_2007_001.jpg" },
     name: "Sirrus 2.0",
     brand: "Specialized",
     category: "city",
@@ -143,6 +159,8 @@ const PRODUCTS = [
   },
   {
     id: "jett-20",
+    image: "images/products/jett-20.jpg",
+    credit: { author: "Matti Blume", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/deed.en", source: "https://commons.wikimedia.org/wiki/File:Rascal,_Eurobike_2024,_Frankfurt_am_Main_(EB245538).jpg" },
     name: "Jett 20",
     brand: "Specialized",
     category: "kids",
@@ -152,6 +170,8 @@ const PRODUCTS = [
   },
   {
     id: "tube-700c",
+    image: "images/products/tube-700c.jpg",
+    credit: { author: "Oostblokblik", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", source: "https://commons.wikimedia.org/wiki/File:Barum_bicycle_inner_tube.jpg" },
     name: "Inner Tube 700c",
     brand: "Specialized",
     category: "parts",
@@ -162,6 +182,8 @@ const PRODUCTS = [
   },
   {
     id: "chain-11",
+    image: "images/products/chain-11.jpg",
+    credit: { author: "Cjp24", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0", source: "https://commons.wikimedia.org/wiki/File:Racing_bicycle_chain_(detail).jpg" },
     name: "11-Speed Chain",
     brand: "Shimano",
     category: "parts",
@@ -171,6 +193,8 @@ const PRODUCTS = [
   },
   {
     id: "helmet-align",
+    image: "images/products/helmet-align.jpg",
+    credit: { author: "Tejvan Pettinger", license: "CC BY 2.0", licenseUrl: "https://creativecommons.org/licenses/by/2.0", source: "https://commons.wikimedia.org/wiki/File:Helmet_bike.jpg" },
     name: "Align II Helmet",
     brand: "Specialized",
     category: "accessories",
@@ -181,6 +205,8 @@ const PRODUCTS = [
   },
   {
     id: "u-lock",
+    image: "images/products/u-lock.jpg",
+    credit: { author: "WrS.tm.pl", license: "Public domain", licenseUrl: "", source: "https://commons.wikimedia.org/wiki/File:The_bike_is_secured_with_a_U_lock._Tomasz%C3%B3w_Mazowiecki,_Poland.jpg" },
     name: "Heavy-Duty U-Lock",
     brand: "Kryptonite",
     category: "accessories",
@@ -190,6 +216,8 @@ const PRODUCTS = [
   },
   {
     id: "light-set",
+    image: "images/products/light-set.jpg",
+    credit: { author: "Singlespeedfahrer", license: "CC0", licenseUrl: "http://creativecommons.org/publicdomain/zero/1.0/deed.en", source: "https://commons.wikimedia.org/wiki/File:Fahrrad_R%C3%BCckleuchte_Sigma_Hiro.jpg" },
     name: "Rechargeable Light Set",
     brand: "Specialized",
     category: "accessories",

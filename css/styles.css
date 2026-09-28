@@ -352,3 +352,11 @@ input:focus, select:focus, textarea:focus, button:focus-visible, a:focus-visible
 .promo .btn-ghost { background: #0b0b0c; color: #fff; }
 .promo .btn-ghost:hover { color: var(--accent); filter: none; }
 .perk { margin: 0 0 12px; padding: 10px 14px; border-left: 4px solid var(--accent); background: var(--surface); color: #fff; font-weight: 600; }
+
+/* Photo credits */
+.photo-credit { font-size: 0.78rem; color: var(--muted); margin: 8px 0 0; }
+.photo-credit a { color: var(--muted); }
+.credit-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.credit-list li { display: flex; gap: 16px; align-items: center; background: var(--surface); border: 1px solid var(--line); padding: 10px; }
+.credit-list img { width: 96px; aspect-ratio: 4 / 3; object-fit: cover; flex: none; }
+.credit-list .fine a { color: var(--muted); }

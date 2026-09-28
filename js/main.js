@@ -116,7 +116,7 @@ function renderChrome() {
           ${hoursTable()}
         </div>
       </div>
-      <p class="container copyright">&copy; ${new Date().getFullYear()} ${SHOP.name}</p>`;
+      <p class="container copyright">&copy; ${new Date().getFullYear()} ${SHOP.name} · <a href="credits.html">Photo credits</a></p>`;
   }
   updatePickupCount();
 }
@@ -139,6 +139,11 @@ function placeholderArt(category) {
     : `<circle cx="60" cy="36" r="22"/><circle cx="60" cy="36" r="7"/>
        <path d="M60 14 V22 M60 50 V58 M38 36 H46 M74 36 H82"/>`;
   return `<svg class="ph-art" viewBox="0 0 120 70" aria-hidden="true">${art}</svg>`;
+}
+
+function creditLine(c) {
+  const license = c.licenseUrl ? `<a href="${escapeHtml(c.licenseUrl)}" rel="license noopener" target="_blank">${escapeHtml(c.license)}</a>` : escapeHtml(c.license);
+  return `${escapeHtml(c.author)} · ${license} · <a href="${escapeHtml(c.source)}" rel="noopener" target="_blank">Source</a>`;
 }
 
 function productImage(p) {
@@ -230,7 +235,10 @@ function initProduct() {
   root.innerHTML = `
     <p class="crumbs"><a href="shop.html">Shop</a> / <a href="shop.html?category=${p.category}">${categoryLabel(p.category)}</a></p>
     <div class="product-layout">
-      <div class="product-img">${productImage(p)}</div>
+      <div>
+        <div class="product-img">${productImage(p)}</div>
+        ${p.credit ? `<p class="photo-credit">Sample photo, may not show the exact model. Photo: ${creditLine(p.credit)}</p>` : ""}
+      </div>
       <div class="product-info">
         <p class="card-brand">${escapeHtml(p.brand)}</p>
         <h1>${escapeHtml(p.name)}</h1>
@@ -423,6 +431,18 @@ function initContact() {
   });
 }
 
+function initCredits() {
+  $("#credit-list").innerHTML = PRODUCTS.filter((p) => p.credit)
+    .map(
+      (p) => `<li>
+        <img src="${escapeHtml(p.image)}" alt="" loading="lazy">
+        <div><a href="product.html?id=${encodeURIComponent(p.id)}"><strong>${escapeHtml(p.brand)} ${escapeHtml(p.name)}</strong></a><br>
+        <span class="fine">${creditLine(p.credit)}</span></div>
+      </li>`
+    )
+    .join("");
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   renderChrome();
   const init = {
@@ -433,6 +453,7 @@ document.addEventListener("DOMContentLoaded", () => {
     services: initServices,
     about: initAbout,
     contact: initContact,
+    credits: initCredits,
   }[document.body.dataset.page];
   if (init) init();
 });
